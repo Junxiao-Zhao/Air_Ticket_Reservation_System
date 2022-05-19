@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body><div style="text-align: center;">
+        <h2>{{type}}</h2>
+        <div>
+    
+            <form action="/viewFlight" method="post">
+                From <input type="date", name = "from", required/> to <input type="date", name = "to", required/> 
+                <input type="submit" value = "Search" /> </br> </br>
+            </form>
+            {% if error %}
+                <p class="error"><strong>Error:</strong> {{error}}</p>
+            {% endif %}
+            <style type="text/css">
+                table, th, td{
+                    border: 1px solid black;
+                }
+            </style>
+            <table align="center">
+                <th>Airline Name</th>
+                <th>Flight Number</th>
+                <th>Departure Airport</th>
+                <th>Departure Time</th>
+                <th>Arrival Airport</th>
+                <th>Arrival Time</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Airplane ID</th>
+            
+                {% for line in posts %}
+                    <tr>
+                        <td>{{line['airline_name']}}</td>
+                        <td>{{line['flight_num']}}</td>
+                        <td>{{line['departure_airport']}}</td>
+                        <td>{{line['departure_time']}}</td>
+                        <td>{{line['arrival_airport']}}</td>
+                        <td>{{line['arrival_time']}}</td>
+                        <td>{{line['price']}}</td>
+                        <td>{{line['status']}}</td>
+                        <td>{{line['airplane_id']}}</td>
+                    </tr>
+                {% endfor %}
+            </table></br>
+        </div>
+        <input type="button" onclick="javascript:history.back(-1);" value="Previous Page">
+        <a href="/home"><button>Back Home</button></a> </br> </div>
+    </body>
+</html>

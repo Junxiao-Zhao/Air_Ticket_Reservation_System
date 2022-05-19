@@ -1,0 +1,72 @@
+<html>
+    <head></head>
+    <body><div style="text-align: center;">
+        <h2>Comparison of Revenue earned in the last {{time}}:</h2>
+        
+        <div id="x" d="{{x}}" style="display:none"></div>
+        <div id="y" d="{{y}}" style="display:none"></div>
+        <div>
+        <canvas id="canvas" width="900" height="600" style="border: 1px solid #000;"></canvas>
+        <script>
+            //Basic Data
+            var canvas=document.getElementById('canvas');
+            var ctx=canvas.getContext('2d');
+            var data_x = parseFloat(document.getElementById('x').getAttribute('d')).toFixed(2)
+            var data_y = parseFloat(document.getElementById('y').getAttribute('d')).toFixed(2)
+            var dataArr = [
+                {name:'Direct Sales: ', color:'blue', value:data_x},
+                {name:'Indirect Sales: ', color:'red', value:data_y}
+            ];
+
+            //Circle info
+            var x0 = canvas.width * 0.5, y0 = canvas.height * 0.5;
+            var radius = 150;
+             var beginAngle = -90 *Math.PI/180;
+            
+             //Draw Circle
+            for (var i = 0; i < dataArr.length; i++) {
+                //Angle
+                var tempAngle = dataArr[i].value * 360 *Math.PI/180;
+                var endAngle = beginAngle + tempAngle;
+
+                //Draw
+                ctx.beginPath();
+                ctx.moveTo(x0, y0);
+                ctx.arc(x0, y0, radius, beginAngle, endAngle);
+                ctx.fillStyle = dataArr[i].color;
+                ctx.fill();
+
+                //Text
+                var textAngle = beginAngle + tempAngle * 0.5;
+                var text = dataArr[i].name + dataArr[i].value * 100 + '%';
+                console.log(text);
+                
+                var textX = x0 + (radius + 30) * Math.cos(textAngle);
+                var textY = y0 + (radius + 30) * Math.sin(textAngle);
+                
+                ctx.font = "20px '微软雅黑'";
+                
+                if((textAngle > 90 *Math.PI/180) && (textAngle < 270 *Math.PI/180) ) {
+                    ctx.textAlign = 'end';
+                }
+                
+                ctx.fillText(text, textX, textY);
+                
+                beginAngle = endAngle;
+            }
+        </script></br></div>
+
+        {% if error %}
+            <p class="error"><strong>Error:</strong> {{error}}</p>
+        {% endif %}
+
+        {% if time == 'year' %}
+            Switch to see: <a href="/compRM"><button>last month</button></a> </br></br>
+        {% endif %}
+        {% if time == 'month' %}
+        Switch to see: <a href="/compRY"><button>last year</button></a> </br></br>
+        {% endif %}
+        
+        <a href="/home"><button>Back Home</button></a></div>
+    </body>
+</html>

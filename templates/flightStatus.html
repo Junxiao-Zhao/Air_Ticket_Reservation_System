@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body><div style="text-align: center;">
+        <h2>Flights' Status</h2>
+        <form style=" width: 50vw; margin-left : 25vw;" action="/searchStatus" method="post"><center>
+            <table style="border: none;">
+                <tr>
+                    <td style="border:transparent;"><lable>Flight Number: </lable></td>
+                    <td style="border:transparent;"><input type="number" name="flight_num" placeholder="Flight Number" required> </td>
+                </tr>
+                <tr>
+                    <td style="border:transparent;"><lable>Date: </lable></td>
+                    <td style="border:transparent;"><input type="date" name="date" placeholder="date" required/> </td>
+                </tr>
+            </table>
+            <input type="submit" value = Search /> </center>
+        </form></br>
+            {% if error %}
+                <p class="error"><strong>Error:</strong> {{error}}</p>
+            {% endif %}
+            {% if not error %}
+                <style type="text/css">
+                    table, th, td{
+                        border: 1px solid black;
+                    }
+                </style>
+
+                <table align="center">
+                    <th>Airline Name</th>
+                    <th>Flight Number</th>
+                    <th>Departure Airport</th>
+                    <th>Departure Time</th>
+                    <th>Arrival Airport</th>
+                    <th>Arrival Time</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Airplane ID</th>
+                
+                {% for line in posts %}
+                    <tr>
+                        <td>{{line['airline_name']}}</td>
+                        <td>{{line['flight_num']}}</td>
+                        <td>{{line['departure_airport']}}</td>
+                        <td>{{line['departure_time']}}</td>
+                        <td>{{line['arrival_airport']}}</td>
+                        <td>{{line['arrival_time']}}</td>
+                        <td>{{line['price']}}</td>
+                        <td>{{line['status']}}</td>
+                        <td>{{line['airplane_id']}}</td>
+                    </tr>
+                {% endfor %}
+                </table> </br>
+            {% endif %}
+            <input type="button" name="Submit" onclick="javascript:history.back(-1);" value="Previous Page">
+        {% if not username %}
+            <a href="/"><button>Back Home</button></a> </br>
+        {% endif %}
+        {% if username %}
+            <a href="/home"><button>Back Home</button></a> </br>
+        {% endif %}</div>
+    </body>
+</html>

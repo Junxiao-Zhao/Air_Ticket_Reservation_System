@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body><div style="text-align: center;">
+    <div id="x" d="{{x}}" style="display:none"></div>
+    <div id="y" d="{{y}}" style="display:none"></div>
+    <h2>{{message}}</h2>
+
+    <form action="/topC" method="post">
+        From <input type="date", name = "from", required/> to <input type="date", name = "to", required/>
+        <input type="submit" value = "Search" />
+    </form> </br>
+    
+    <a href="/topCustomerT"><button>Sort by the number of Tickets</button></a> </br>
+    
+    <div>
+    <canvas id="barChart" height="400" width="600" style="margin:50px"></canvas>
+
+    <script type="text/javascript">
+        function goBarChart(dataArr_x, dataArr_y){
+            // declear the variables
+            var canvas,ctx;
+            var cWidth, cHeight, cMargin, cSpace;
+            var originX, originY;
+            var bMargin, tobalBars, bWidth, maxValue;
+            var totalYNomber;
+            var gradient;
+            var ctr, numctr, speed;
+
+            // get canvas info
+            canvas = document.getElementById("barChart");
+            if(canvas && canvas.getContext){
+                ctx = canvas.getContext("2d");
+            }
+
+            // initialize
+            initChart();
+            drawLineLabelMarkers();
+            drawBarAnimate();
+
+            function initChart(){
+                // chart info
+                cMargin = 30;
+                cSpace = 60;
+                cHeight = canvas.height - cMargin*2 - cSpace;
+                cWidth = canvas.width - cMargin*2 - cSpace;
+                originX = cMargin + cSpace;
+                originY = cMargin + cHeight;
+
+                // bar info
+                bMargin = 15;
+                tobalBars = dataArr_x.length;
+                bWidth = parseInt( cWidth/tobalBars - bMargin );
+                maxValue = 0;
+                for(var i=0; i<tobalBars; i++){
+                    var barVal = parseInt( dataArr_y[i] );
+                    if( barVal > maxValue ){
+                        maxValue = barVal;
+                    }
+                }
+                maxValue += 50;
+                totalYNomber = 10;
+                // movements
+                ctr = 1;
+                numctr = 100;
+                speed = 10;
+
+                //gradient color
+                gradient = ctx.createLinearGradient(0, 0, 0, 300);
+                gradient.addColorStop(0, 'green');
+                gradient.addColorStop(1, 'rgba(67,203,36,1)');
+
+            }
+
+            // axis info
+            function drawLineLabelMarkers(){
+                ctx.translate(0.5,0.5);
+                ctx.font = "12px Arial";
+                ctx.lineWidth = 1;
+                ctx.fillStyle = "#000";
+                ctx.strokeStyle = "#000";
+                // y-axis
+                drawLine(originX, originY, originX, cMargin);
+                // x-axis
+                drawLine(originX, originY, originX+cWidth, originY);
+
+                // markers
+                drawMarkers();
+                ctx.translate(-0.5,-0.5);
+            }
+
+            // draw lines
+            function drawLine(x, y, X, Y){
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                ctx.lineTo(X, Y);
+                ctx.stroke();
+                ctx.closePath();
+            }
+
+            // draw markers
+            function drawMarkers(){
+                ctx.strokeStyle = "#E0E0E0";
+                // draw y
+                var oneVal = parseInt(maxValue/totalYNomber);
+                ctx.textAlign = "right";
+                for(var i=0; i<=totalYNomber; i++){
+                    var markerVal =  i*oneVal;
+                    var xMarker = originX-5;
+                    var yMarker = parseInt( cHeight*(1-markerVal/maxValue) ) + cMargin;
+                    ctx.fillText(markerVal, xMarker, yMarker+3, cSpace);
+                    if(i>0){
+                        drawLine(originX, yMarker, originX+cWidth, yMarker);
+                    }
+                }
+                // draw x
+                ctx.textAlign = "center";
+                for(var i=0; i<tobalBars; i++){
+                    var markerVal = dataArr_x[i];
+                    var xMarker = parseInt( originX+cWidth*(i/tobalBars)+bMargin+bWidth/2 );
+                    var yMarker = originY+15;
+                    ctx.fillText(markerVal, xMarker, yMarker);
+                }
+                // y title
+                ctx.save();
+                ctx.rotate(-Math.PI/2);
+                ctx.fillText("Amount of Commission", -canvas.height/2, cSpace-10);
+                ctx.restore();
+                // x title
+                ctx.fillText("Username", originX+cWidth/2, originY+cSpace/2+10);
+            };
+
+            //draw the bar chart
+            function drawBarAnimate(mouseMove){
+                for(var i=0; i<tobalBars; i++){
+                    var oneVal = parseInt(maxValue/totalYNomber);
+                    var barVal = dataArr_y[i];
+                    var barH = parseInt( cHeight*barVal/maxValue * ctr/numctr );
+                    var y = originY - barH;
+                    var x = originX + (bWidth+bMargin)*i + bMargin;
+                    drawRect( x, y, bWidth, barH, mouseMove );
+                    ctx.fillText(parseInt(barVal*ctr/numctr), x+15, y-8);
+                }
+                if(ctr<numctr){
+                    ctr++;
+                    setTimeout(function(){
+                        ctx.clearRect(0,0,canvas.width, canvas.height);
+                        drawLineLabelMarkers();
+                        drawBarAnimate();
+                    }, speed);
+                }
+            }
+
+            //draw bars
+            function drawRect( x, y, X, Y, mouseMove ){
+
+                ctx.beginPath();
+                ctx.rect( x, y, X, Y );
+                
+                ctx.fillStyle = gradient;
+                ctx.strokeStyle = gradient;
+                
+                ctx.fill();
+                ctx.closePath();
+
+            }
+        }
+        var data_x = document.getElementById('x').getAttribute('d').split(",");
+        var data_y = document.getElementById('y').getAttribute('d').split(",");
+
+        goBarChart(data_x,data_y)
+
+    </script></div>
+    
+    <a href="/home"><button>Back Home</button></a> </br></div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body><div style="text-align: center;">
+        <h2>Search the customer's flights in the last year:</h2>
+        <div>
+            <h3>{{type}}</h3>
+            <form action="/custTop" method="post">
+                Customer email: <select name="c_email" required>
+                    {% for each in lists %}
+                        <option value="{{each['customer_email']}}">{{each['customer_email']}}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value = "Search" />
+            </form> </br>
+            <style type="text/css">
+                table, th, td{
+                    border: 1px solid black;
+                }
+            </style>
+            {% if posts%}
+                <table align="center">
+                    <th>Airline Name</th>
+                    <th>Flight Number</th>
+                    <th>Departure Airport</th>
+                    <th>Departure Time</th>
+                    <th>Arrival Airport</th>
+                    <th>Arrival Time</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Airplane ID</th>
+                
+                    {% for line in posts %}
+                        <tr>
+                            <td>{{line['airline_name']}}</td>
+                            <td>{{line['flight_num']}}</td>
+                            <td>{{line['departure_airport']}}</td>
+                            <td>{{line['departure_time']}}</td>
+                            <td>{{line['arrival_airport']}}</td>
+                            <td>{{line['arrival_time']}}</td>
+                            <td>{{line['price']}}</td>
+                            <td>{{line['status']}}</td>
+                            <td>{{line['airplane_id']}}</td>
+                        </tr>
+                    {% endfor %} 
+                </table> </br> 
+            {% endif %}
+            <input type="button" onclick="javascript:history.back(-1);" value="Previous Page">
+            <a href="/home"><button>Back Home</button></a> </br></div></div>
+    </body>
+</html>

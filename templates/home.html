@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body><div style="text-align: center;">
+        <h1>Welcome, {{username}}!</h1>
+        <p>{% if identity == 'customer' %}
+            <a href="/flightView"><button>View My Flights</button></a> </br>
+            <a href="/flightStatus"><button>Find Flights' Status</button></a> </br>
+            <a href="/flightSearch"><button>Search\Purchase Flights</button></a> </br>
+            <a href="/refund"><button>Refund</button></a> </br>
+            <a href="/spendingTrack"><button>Spending Track</button></a> </br> 
+        {% endif %}</p>
+
+        <p>{% if identity == 'ba' %}
+            <a href="/flightView"><button>View My Flights</button></a> </br>
+            <a href="/flightSearch"><button>Search\Purchase Flights</button></a> </br>
+            <a href="/refund"><button>Refund</button></a> </br>
+            <a href="/commission"><button>View Commission</button></a> </br>
+            <a href="/topCustomerT"><button>View Top Customers</button></a> </br>
+        {% endif %}</p>
+
+        <p>{% if identity == 'staff' %}
+            <a href="/flightView"><button>View Upcoming Flights</button></a> </br>
+            <a href="/topBA"><button>View booking agents</button></a> </br>
+            <a href="/topCust"><button>View frequent customers</button></a> </br>
+            <a href="/reportView"><button>View Report</button></a> </br>
+            <a href="/topDest"><button>Top 3 Destinations</button></a> </br>
+            <a href="/compRM"><button>Comparison of Revenue earned</button></a> </br>
+            {% if admin == 'True' %}
+                <a href="/flightCreate"><button>Create new Flights</button></a> </br>
+                <a href="/airplaneAdd"><button>Add new airplanes</button></a> </br>
+                <a href="/airportAdd"><button>Add new airports</button></a> </br>
+                <a href="/baAdd"><button>Add booking agents</button></a> </br>
+                <a href="/permissionGrant"><button>Grant new permissions</button></a> </br>
+            {% endif %}
+            {% if operator == 'True' %}
+                <a href="/statusChange"><button>Change Flights' Status</button></a> </br>
+            {% endif %}
+        {% endif %}</p>
+
+        <a href="/logout">Logout</a></div>
+    </body>
+</html>

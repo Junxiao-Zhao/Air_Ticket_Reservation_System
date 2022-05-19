@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body><center>
+        <h2>Booking Agent Register</h2>
+        <form action="/registerBA" method="POST">
+            <table border="0" cellspacing="" cellpadding="">
+                <tr>
+                    <td><lable>Email:</lable></td>
+                    <td><input type="email" name="email" placeholder="Email" required/></td>
+                </tr>
+                <tr>
+                    <td><lable>Password:</lable></td>
+                    <td><input type="password" name="password" placeholder="Password" required/></td>
+                </tr>
+            </table>
+            <label>Your assigned Booking Agent ID: {{assign}}</label></br>
+            <input type="submit" value = Register />
+        </form>
+        {% if error %}
+            <p class="error"><strong>Error:</strong> {{error}}
+        {% endif %}</br></br>
+        <a href="/"><button>Back Home</button></a>
+    </center></body>
+</html>

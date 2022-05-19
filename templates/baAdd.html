@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body><div style="text-align: center;">
+        <h2>Add new booking agents</h2>
+        {% if error %}
+            <p class="error"><strong>Error:</strong> {{error}}</p>
+        {% endif %}
+        
+        {% if not error %}
+            <form action="/addBA" method="post">
+                Email: <input type="email" name="email" placeholder="Email" required/>
+                <input type="submit" value = "Submit"/> </br>
+            </form> </br>
+        {% endif %}
+        
+        {% if error2 %}
+            <p class="error"><strong>Error:</strong> {{error2}}</p>
+        {% endif %}
+
+        {% if status %}
+            <h3>Success!</h3></br>
+        {% endif %}
+        <style type="text/css">
+            table, th, td{
+                border: 1px solid black;
+            }
+        </style>
+        <h3>Booking agents working for this airline: </h3>
+        <table align="center">
+            <th>Booking Agent ID</th>
+
+            {% for line in posts %}
+                <tr>
+                    <td>{{line['email']}}</td>
+                </tr>
+            {% endfor %} 
+        </table></br>
+        <a href="/home"><button>Back Home</button></a> </br> </div>
+    </body>
+</html>

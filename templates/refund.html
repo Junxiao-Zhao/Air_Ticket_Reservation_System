@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body><div style="text-align: center;">
+        <h2>Refund</h2>
+        <form action="/refundFlight" method="post">
+            Ticket ID: <select name="ticket_id" required>
+                {% for each in posts %}
+                    <option value="{{each['ticket_id']}}">{{each['ticket_id']}}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value = "Submit" />
+        </form>
+        <style type="text/css">
+            table, th, td{
+                border: 1px solid black;
+            }
+        </style>
+        {% if status %}
+            <h3>Success!</h3>
+        {% endif %}
+        <h3>Upcoming Flights</h3>
+        <table align="center">
+            <th>Ticket ID</th>
+            <th>Airline Name</th>
+            <th>Flight Number</th>
+            <th>Departure Airport</th>
+            <th>Departure Time</th>
+            <th>Arrival Airport</th>
+            <th>Arrival Time</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Airplane ID</th>
+        
+            {% for line in posts %}
+                <tr>
+                    <td>{{line['ticket_id']}}</td>
+                    <td>{{line['airline_name']}}</td>
+                    <td>{{line['flight_num']}}</td>
+                    <td>{{line['departure_airport']}}</td>
+                    <td>{{line['departure_time']}}</td>
+                    <td>{{line['arrival_airport']}}</td>
+                    <td>{{line['arrival_time']}}</td>
+                    <td>{{line['price']}}</td>
+                    <td>{{line['status']}}</td>
+                    <td>{{line['airplane_id']}}</td>
+                </tr>
+            {% endfor %} 
+        </table> </br>
+    <a href="/home"><button>Back Home</button></a> </br> </div>
+    </body>
+</html>

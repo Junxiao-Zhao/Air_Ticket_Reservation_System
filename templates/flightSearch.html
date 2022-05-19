@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body><div style="text-align: center;">
+        <h2>Search Flights</h2>
+        <div>
+            <form action="/searchFlight" method="post">
+                <center><table style="border:transparent;">
+                    <tr>
+                        <td style="border:transparent;">Departure: </td>
+                        <td style="border:transparent;"><input type="text" name="departure" placeholder="City/Airport" required/> </td>
+                    </tr>
+                    <tr>
+                        <td style="border:transparent;">Destination: </td>
+                        <td style="border:transparent;"><input type="text" name="destination" placeholder="City/Airport" required/> </td>
+                    </tr>
+                    <tr>
+                        <td style="border:transparent;">Date: </td>
+                        <td style="border:transparent;"><input type="date" name="date" placeholder="date" required/> </td>
+                    </tr>
+                </table></center>
+                <input type="submit" value = "Search"/> 
+            </form></br>
+            {% if error %}
+                <p class="error"><strong>Error:</strong> {{error}}</p>
+            {% endif %}
+            {% if not error %}
+                <style type="text/css">
+                    table, th, td{
+                        border: 1px solid black;
+                    }
+                </style>
+                
+                <table align="center">
+                    <th>Airline Name</th>
+                    <th>Flight Number</th>
+                    <th>Departure Airport</th>
+                    <th>Departure Time</th>
+                    <th>Arrival Airport</th>
+                    <th>Arrival Time</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Airplane ID</th>
+                
+                    {% for line in posts %}
+                        <tr>
+                            <td>{{line['airline_name']}}</td>
+                            <td>{{line['flight_num']}}</td>
+                            <td>{{line['departure_airport']}}</td>
+                            <td>{{line['departure_time']}}</td>
+                            <td>{{line['arrival_airport']}}</td>
+                            <td>{{line['arrival_time']}}</td>
+                            <td>{{line['price']}}</td>
+                            <td>{{line['status']}}</td>
+                            <td>{{line['airplane_id']}}</td>
+                        </tr>
+                    {% endfor %} 
+                </table> </br>
+            {% endif %}
+        </div>
+        <div>
+            
+            <!--Customer-->
+            {% if username %}
+                <h2>Purchase Flights</h2>
+                {% if identity == 'customer' %}
+                    <form action="/purchaseFlight" method="post"><center>
+                        <table style="border:transparent;">
+                            <tr>
+                                <td style="border:transparent;">Airline Name: </td>
+                                <td style="border:transparent;"><input type="text" name="air_name" placeholder="Airline Name" required/> </td>
+                            </tr>
+                            <tr>
+                                <td style="border:transparent;">Flight Number: </td>
+                                <td style="border:transparent;"><input type="number" name="f_num" placeholder="Flight Number" required/> </td>
+                            </tr>
+                        </table>
+                        <input type="submit" value = "Purchase"/></center>
+                    </form> </br>
+                {% endif %}
+                
+                <!--Booking Agent-->
+                {% if identity == 'ba' %}
+                    <form action="/purchaseFlight" method="post"><center>
+                        <table style="border:transparent;">
+                            <tr>
+                                <td style="border:transparent;">Airline Name: </td>
+                                <td style="border:transparent;"><input type="text" name="air_name" placeholder="Airline Name" required/> </td>
+                            </tr>
+                            <tr>
+                                <td style="border:transparent;">Flight Number: </td>
+                                <td style="border:transparent;"><input type="number" name="f_num" placeholder="Flight Number" required/> </td>
+                            </tr>
+                            <tr>
+                                <td style="border:transparent;">Customer email: </td>
+                                <td style="border:transparent;"><input type="email" name="email" placeholder="Email" required/> </td>
+                            </tr>
+                        </table>
+                        <input type="submit" value = "Purchase"/> </center>
+                    </form>
+                {% endif %}
+
+                {% if error2 %}
+                        <p class="error"><strong>Error:</strong> {{error2}}</p>
+                {% endif %}
+                {% if status %}
+                    <h3>Success!</h3>
+                {% endif %}
+            {% endif %}
+        </div></br>
+        <input type="button" onclick="javascript:history.back(-1);" value="Previous Page">
+        {% if not username %}
+            <a href="/"><button>Back Home</button></a> </br>
+            <a href="/login"><button>Login to Purchase Flights</button></a> </br>
+        {% endif %}
+        {% if username %}
+            <a href="/home"><button>Back Home</button></a> </br>
+        {% endif %}</div>
+    </body>
+</html>

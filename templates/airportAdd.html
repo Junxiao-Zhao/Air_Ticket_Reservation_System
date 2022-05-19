@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body><div style="text-align: center;">
+        <h2>Add new airorts</h2>
+        {% if error %}
+            <p class="error"><strong>Error:</strong> {{error}}</p>
+        {% endif %}
+        
+        {% if not error %}<center>
+            <form action="/addAirport" method="post">
+                <table style="border: none;">
+                    <tr>
+                        <td style="border: none;">Airport Name: </td>
+                        <td style="border: none;"><input type="text" name="airport_name" placeholder="airport name" required/> </td>
+                    </tr>
+                    <tr>
+                        <td style="border: none;">Airport City: </td>
+                        <td style="border: none;"><input type="text" name="airport_city" placeholder="airport city" required/> </td>
+                    </tr>
+                </table>
+                <input type="submit" value = "Submit"/>
+            </form></center> </br>
+        {% endif %}
+        
+        {% if error2 %}
+            <p class="error"><strong>Error:</strong> {{error2}}</p> </br>
+        {% endif %}
+
+        {% if status %}
+            <h3>Success!</h3></br>
+        {% endif %}
+        
+        <a href="/home"><button>Back Home</button></a> </br></div>
+    </body>
+</html>

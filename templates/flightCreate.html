@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body><div style="text-align: center;">
+        <h2>Create New Flights</h2>
+        {% if error %}
+            <p class="error"><strong>Error:</strong> {{error}}</p>
+        {% endif %}
+        
+        {% if not error %}<center>
+            <form action="/createFlight" method="post">
+                <table style="border: none;">
+                    <tr>
+                       <td style="border: 0;">Flight Number: </td>
+                       <td style="border: 0;"><input type="number" name="f_num" placeholder="flight number" required/> </td>
+                    </tr>
+                    <tr>
+                       <td style="border: 0;">Departure Airport: </td>
+                       <td style="border: 0;"><select name="departure" required>
+                        {% for each in airports %}
+                            <option value="{{each['airport_name']}}">{{each['airport_name']}}</option>
+                        {% endfor %}
+                        </select> </td>
+                    </tr>
+                    <tr>
+                       <td style="border: 0;">Departure Date: </td>
+                       <td style="border: 0;"><input type="datetime" name="d_date" placeholder="date" required/> </td>
+                    </tr>
+                    <tr>
+                       <td style="border: 0;">Arrival Airport: </td>
+                       <td style="border: 0;"><select name="destination" required>
+                        {% for each in airports %}
+                            <option value="{{each['airport_name']}}">{{each['airport_name']}}</option>
+                        {% endfor %}
+                        </select> </td>
+                    </tr>
+                    <tr>
+                       <td style="border: 0;">Arrival Date: </td>
+                       <td style="border: 0;"><input type="datetime" name="a_date" placeholder="date" required/> </td>
+                    </tr>
+                    <tr>
+                       <td style="border: 0;">Price: </td>
+                       <td style="border: 0;"><input type="" name="price" placeholder="price" step="0.01"required/> </td>
+                    </tr>
+                    <tr>
+                       <td style="border: 0;">Status: </td>
+                       <td style="border: 0;"><select name="status" required>
+                        <option value="Upcoming">Upcoming</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Delayed">Delayed</option>
+                        <option value="Finished">Finished</option>
+                        </select> </td>
+                    </tr>
+                    <tr>
+                       <td style="border: 0;">Airplane ID: </td>
+                       <td style="border: 0;"><select name="air_id" required>
+                        {% for each in airplane_ids %}
+                            <option value="{{each['airplane_id']}}">{{each['airplane_id']}}</option>
+                        {% endfor %}
+                        </select> </td>
+                    </tr>
+                </table>
+                <input type="submit" value = "Submit" /> </br> </br>
+            </form></center>
+            <style type="text/css">
+                table, th, td{
+                    border: 1px solid black;
+                }
+            </style>
+            {% if status %}
+                <h3>Success!</h3>
+            {% endif %}
+            {% if error2 %}
+                <p class="error"><strong>Error:</strong> {{error2}}</p>
+            {% endif %}
+            
+            <h3>The upcoming flights in the next 30 days:</h3> 
+            <table align="center">
+                <th>Airline Name</th>
+                <th>Flight Number</th>
+                <th>Departure Airport</th>
+                <th>Departure Time</th>
+                <th>Arrival Airport</th>
+                <th>Arrival Time</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Airplane ID</th>
+            
+                {% for line in posts %}
+                    <tr>
+                        <td>{{line['airline_name']}}</td>
+                        <td>{{line['flight_num']}}</td>
+                        <td>{{line['departure_airport']}}</td>
+                        <td>{{line['departure_time']}}</td>
+                        <td>{{line['arrival_airport']}}</td>
+                        <td>{{line['arrival_time']}}</td>
+                        <td>{{line['price']}}</td>
+                        <td>{{line['status']}}</td>
+                        <td>{{line['airplane_id']}}</td>
+                    </tr>
+                {% endfor %} 
+            </table></br>
+        {% endif %}
+        <a href="/home"><button>Back Home</button></a> </br> </div>
+    </body>
+</html>

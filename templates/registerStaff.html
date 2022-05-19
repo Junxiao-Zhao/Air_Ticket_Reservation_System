@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body><center>
+        <h2>Airline Staff Register</h2>
+        <form action="/registerStaff" method="POST">
+            <table>
+                <tr>
+                    <td>Username: </td>
+                    <td><input type="text" name="email" placeholder="Username" required/> </td>
+                </tr>
+                <tr>
+                    <td>Password: </td>
+                    <td><input type="password" name="password" placeholder="Password" required/></td>
+                </tr>
+                <tr>
+                    <td>First Name: </td>
+                    <td><input type="text" name="fst_name" placeholder="First Name" required/> </td>
+                </tr>
+                <tr>
+                    <td>Last Name: </td>
+                    <td><input type="text" name="last_name" placeholder="Last Name" required/> </td>
+                </tr>
+                <tr>
+                    <td>Date of Birth: </td>
+                    <td><input type="date" name="birth" placeholder="Date of Birth" required/></td>
+                </tr>
+                <tr>
+                    <td> Airline Name: </td>
+                    <td><select name="air_name" required>
+                    {% for each in names %}
+                        <option value="{{each['airline_name']}}">{{each['airline_name']}}</option>
+                    {% endfor %} </td>
+                </tr>
+                </select>
+            </table>
+            <input type="submit" value = Register />
+        </form> </br>
+        {% if error %}
+            <p class="error"><strong>Error:</strong> {{error}}</p> </br>
+        {% endif %}
+        <a href="/"><button>Back Home</button></a></div>
+    </center></body>
+</html>

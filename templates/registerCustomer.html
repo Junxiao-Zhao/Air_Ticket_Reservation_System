@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body><center>
+        <h2>Customer Register</h2>
+        <form action="/registerCustomer" method="POST">
+            <table>
+                <tr>
+                    <td>Email: </td>
+                    <td><input type="email" name="email" placeholder="Email" required/> </td>
+                </tr>
+                <tr>
+                    <td>Name: </td>
+                    <td><input type="text" name="name" placeholder="Name" required/> </td>
+                </tr>
+                <tr>
+                    <td>Password: </td>
+                    <td><input type="password" name="password" placeholder="Password" required/></td>
+                </tr>
+                <tr>
+                    <td>Builing Number: </td>
+                    <td><input type="text" name="building_num" placeholder="Builing Number" required/></td>
+                </tr>
+                <tr>
+                    <td>Street: </td>
+                    <td><input type="text" name="street" placeholder="Street" required/></td>               
+                </tr>
+                <tr>
+                    <td>City: </td>
+                    <td><input type="text" name="city" placeholder="City" required/></td>
+                </tr>
+                <tr>
+                    <td>State: </td>
+                    <td><input type="text" name="state" placeholder="State" required/></td>
+                </tr>
+                <tr>
+                    <td>Phone Number: </td>
+                    <td><input type="number" name="phone_num" placeholder="Phone Number" required/></td>
+                </tr>
+                <tr>
+                    <td>Passport Number: </td>
+                    <td><input type="text" name="passport_num" placeholder="Passport Number" required/></td>
+                </tr>
+                <tr>
+                    <td>Passport Expiration: </td>
+                    <td><input type="date" name="passport_expir" placeholder="Passport Expiration" required/></td>
+                </tr>
+                <tr>
+                    <td>Passport Country: </td>
+                    <td><input type="text" name="country" placeholder="Passport Country" required/></td>
+                </tr>
+                <tr>
+                    <td>Date of Birth: </td>
+                    <td><input type="date" name="birth" placeholder="Date of Birth" required/></td>
+                </tr>
+            </table>
+            <input type="submit" value = Register />
+        </form></br>
+        {% if error %}
+            <p class="error"><stdong>Error:</stdong> {{error}}</p></br>
+        {% endif %}
+        
+        <a href="/"><button>Back Home</button></a>
+    </center></body>
+</html>

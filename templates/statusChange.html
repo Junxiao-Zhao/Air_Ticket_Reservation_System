@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body><div style="text-align: center;">
+        <h2>Change Flights' Status</h2>
+        {% if error %}
+            <p class="error"><strong>Error:</strong> {{error}}</p>
+        {% endif %}
+        
+        {% if not error %}<center>
+            <form action="/changeStatus" method="post">
+                <table style="border: none;">
+                    <tr>
+                        <td>Flight Number: </td>
+                        <td><select name="f_num" required>
+                            {% for each in f_num %}
+                                <option value="{{each['flight_num']}}">{{each['flight_num']}}</option>
+                            {% endfor %}
+                        </select> </td>
+                    </tr>
+                    <tr>
+                        <td>Change Status to: </td>
+                        <td><select name="status" required>
+                        <option value="Upcoming">Upcoming</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Delayed">Delayed</option>
+                        <option value="Finished">Finished</option>
+                        </select> </td>
+                    </tr>
+                </table>
+                <input type="submit" value = "Submit" />
+            </form></center></br>
+        {% endif %}
+        {% if status %}
+            <h3>Success!</h3>
+        {% endif %}
+        <a href="/home"><button>Back Home</button></a> </br> </div>
+    </body>
+</html>

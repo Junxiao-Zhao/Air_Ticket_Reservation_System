@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body><div style="text-align: center;">
+        <style>
+            input{text-align: left;
+            }
+        </style>
+        <form action="/loginAuth" method="POST"><center>
+            Login As: </br>
+            <input type="radio" name="identity" value="customer" required/>Customer
+            <input type="radio" name="identity" value="ba" required/>Booking Agent
+            <input type="radio" name="identity" value="staff" required/>Airline Staff </br>
+            <table style="border: 0;">
+                <tr>
+                    <td style="border: 0;">Username: </td>
+                    <td style="border: 0;"><input type="text" name="email" placeholder="username" required/> </td>
+                </tr>
+                <tr>
+                    <td style="border: 0;">Password: </td>
+                    <td style="border: 0;"><input type="password" name="password" placeholder="password" required/> </td>
+                </tr>
+                <tr> 
+                    <td style="border: 0;">Booking Agent ID: </td>
+                    <td style="border: 0;"><input type="number" name="id" placeholder="Booking Agent ID"/></td>
+                </tr>
+            </table>
+            <input type="submit" value = Login />
+        </center></form>
+            {% if error %}
+                <p class="error"><strong>Error:</strong> {{error}}</p>
+            {% endif %}
+        
+    <a href="/"><button>Go back</button></a> </div>
+    </body>
+</html>

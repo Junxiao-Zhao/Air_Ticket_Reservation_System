@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body><div style="text-align: center;">
+        <h2>Grant New Permissions</h2>
+        {% if error %}
+            <p class="error"><strong>Error:</strong> {{error}}</p>
+        {% endif %}
+        
+        {% if not error %}<center>
+            <form action="/grantPermission" method="post">
+                <table style="border: none;">
+                    <tr>
+                        <td>Username: </td>
+                        <td><select name="username" required>
+                        {% for each in names %}
+                            <option value="{{each['username']}}">{{each['username']}}</option>
+                        {% endfor %}
+                        </select> </td>
+                    </tr>
+                    <tr>
+                        <td>Grant the Permission: </td>
+                        <td><select name="permission" required>
+                        <option value="Admin">Admin</option>
+                        <option value="Operator">Operator</option>
+                        </select> </td>
+                    </tr>
+                </table>
+                <input type="submit" value = "Submit" />
+            </form></center></br>
+        {% endif %}
+
+        {% if error2 %}
+            <p class="error"><strong>Error:</strong> {{error2}}</p></br>
+        {% endif %}
+        
+        {% if status %}
+            <h3>Success!</h3></br>
+        {% endif %}
+        <a href="/home"><button>Back Home</button></a> </br></div>
+    </body>
+</html>

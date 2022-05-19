@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body><div style="text-align: center;">
+        <h2>Add new airplanes</h2>
+        {% if error %}
+            <p class="error"><strong>Error:</strong> {{error}}</p>
+        {% endif %}
+        
+        {% if not error %}<center>
+            <form action="/addAirplane" method="post">
+                <table style="border: none;">
+                    <tr>
+                        <td style="border: none;">Airplane ID: </td>
+                        <td style="border: none;"><input type="number" name="air_id" placeholder="id" required/> </td>
+                    </tr>
+                    <tr>
+                        <td style="border: none;">Seats Number: </td>
+                        <td style="border: none;"><input type="number" name="seats" placeholder="seats number" required/> </td>
+                    </tr>
+                </table>
+                <input type="submit" value = "Submit"/> </br>
+            </form></center></br>
+
+        {% endif %}
+        
+        {% if error2 %}
+            <p class="error"><strong>Error:</strong> {{error2}}</p></br>
+        {% endif %}
+
+        {% if status %}
+            <h3>Success!</h3>
+        {% endif %}
+
+        <style type="text/css">
+            table, th, td{
+                border: 1px solid black;
+            }
+        </style>
+        <h3>Now we have these airplanes: </h3>
+        <table align="center">
+            <th>Airplane ID</th>
+            <th>Seats Number</th>
+
+            {% for line in posts %}
+                <tr>
+                    <td>{{line['airplane_id']}}</td>
+                    <td>{{line['seats']}}</td>
+                </tr>
+            {% endfor %} 
+        </table> </br>
+        
+        <a href="/home"><button>Back Home</button></a> </br></div>
+    </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head></head>
+    <body><div style="text-align: center;">
+        <div>
+            <h2>Top 5 booking agents based on number of tickets sales:</h2>
+
+            <style type="text/css">
+                table, th, td{
+                    border: 1px solid black;
+                }
+            </style>
+            <h3>For the past month:</h3>
+            <table align="center">
+                <th>Email</th>
+                <th>Number of tickets sold</th>
+            
+                {% for line in past_monthT %}
+                    <tr>
+                        <td>{{line['email']}}</td>
+                        <td>{{line['num']}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+            <h3>For the past year:</h3>
+            <table align="center">
+                <th>Email</th>
+                <th>Number of tickets sold</th>
+            
+                {% for line in past_yearT %}
+                    <tr>
+                        <td>{{line['email']}}</td>
+                        <td>{{line['num']}}</td>
+                    </tr>
+                {% endfor %} 
+            </table>
+        </div>
+        <div>
+            <h2>Top 5 booking agents based on the amount of commission received for the last year:</h2>
+    
+            <style type="text/css">
+                table, th, td{
+                    border: 1px solid black;
+                }
+            </style>
+            <table align="center">
+                <th>Email</th>
+                <th>Amount of commission received</th>
+            
+                {% for line in com %}
+                    <tr>
+                        <td>{{line['email']}}</td>
+                        <td>{{line['amount']}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div></br><a href="/home"><button>Back Home</button></a> </br></div> </div>
+        
+    </body>
+</html>
